@@ -1,0 +1,8 @@
+en:
+  admin:
+    actions:
+      custom_action:
+        title: "Custom action"
+        menu: "Custom action"
+        breadcrumb: "Custom action"
+        link: "Custom action"
