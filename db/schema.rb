@@ -10,10 +10,55 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_18_183649) do
+ActiveRecord::Schema.define(version: 2021_05_01_150746) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "additional_spends", force: :cascade do |t|
+    t.string "title"
+    t.integer "costInCents"
+    t.string "description"
+    t.datetime "date"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "batch_employees", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "batches", force: :cascade do |t|
+    t.string "batchNumber"
+    t.datetime "produceDate"
+    t.datetime "expirationDate"
+    t.integer "units"
+    t.integer "cancelledUnits"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "bought_ingredients", force: :cascade do |t|
+    t.float "weightInKg"
+    t.integer "kgPriceInCents"
+    t.datetime "orderDate"
+    t.datetime "estimatedDeliveryDate"
+    t.datetime "deliveryDate"
+    t.integer "status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "customers", force: :cascade do |t|
+    t.string "name"
+    t.string "contactPersonName"
+    t.string "phone"
+    t.string "email"
+    t.boolean "isActive"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "employees", force: :cascade do |t|
     t.bigint "position_id", null: false
@@ -27,9 +72,66 @@ ActiveRecord::Schema.define(version: 2021_04_18_183649) do
     t.index ["position_id"], name: "index_employees_on_position_id"
   end
 
+  create_table "ingredients", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "ingredients_storages", force: :cascade do |t|
+    t.float "weightInKg"
+    t.datetime "checkDate"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.integer "unitPriceInCents"
+    t.datetime "orderDate"
+    t.datetime "estimatedDeliveryDate"
+    t.datetime "deliveryDate"
+    t.integer "status"
+    t.integer "orderedUnits"
+    t.integer "soldUnits"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "packed_products", force: :cascade do |t|
+    t.string "name"
+    t.integer "weightInGramms"
+    t.integer "packageType"
+    t.integer "priceInCents"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "positions", force: :cascade do |t|
     t.integer "salary_in_cents"
     t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "product_ingredients", force: :cascade do |t|
+    t.integer "weightInGramms"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.string "name"
+    t.integer "type"
+    t.float "fatPercentage"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "suppliers", force: :cascade do |t|
+    t.string "name"
+    t.string "contactPersonName"
+    t.string "email"
+    t.boolean "isActive"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
