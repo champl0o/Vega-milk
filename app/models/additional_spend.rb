@@ -1,0 +1,2 @@
+class AdditionalSpend < ApplicationRecord
+end

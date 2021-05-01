@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  weightInKg: 1.5
+  kgPriceInCents: 1
+  orderDate: 2021-04-29 19:56:54
+  estimatedDeliveryDate: 2021-04-29 19:56:54
+  deliveryDate: 2021-04-29 19:56:54
+  status: 1
+
+two:
+  weightInKg: 1.5
+  kgPriceInCents: 1
+  orderDate: 2021-04-29 19:56:54
+  estimatedDeliveryDate: 2021-04-29 19:56:54
+  deliveryDate: 2021-04-29 19:56:54
+  status: 1

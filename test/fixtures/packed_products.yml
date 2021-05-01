@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  weightInGramms: 1
+  packageType: 1
+  priceInCents: 1
+
+two:
+  name: MyString
+  weightInGramms: 1
+  packageType: 1
+  priceInCents: 1
