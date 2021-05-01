@@ -10,54 +10,68 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_01_150746) do
+ActiveRecord::Schema.define(version: 2021_05_01_194211) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "additional_spends", force: :cascade do |t|
     t.string "title"
-    t.integer "costInCents"
+    t.integer "cost_in_cents"
     t.string "description"
     t.datetime "date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "batch_employees", force: :cascade do |t|
+  create_table "batches", force: :cascade do |t|
+    t.bigint "packed_product_id", null: false
+    t.string "batch_number"
+    t.datetime "produce_date"
+    t.datetime "expiration_date"
+    t.integer "units"
+    t.integer "cancelled_units"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["packed_product_id"], name: "index_batches_on_packed_product_id"
   end
 
-  create_table "batches", force: :cascade do |t|
-    t.string "batchNumber"
-    t.datetime "produceDate"
-    t.datetime "expirationDate"
-    t.integer "units"
-    t.integer "cancelledUnits"
+  create_table "batches_employees", id: false, force: :cascade do |t|
+    t.bigint "batch_id", null: false
+    t.bigint "employee_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["batch_id"], name: "index_batches_employees_on_batch_id"
+    t.index ["employee_id"], name: "index_batches_employees_on_employee_id"
   end
 
   create_table "bought_ingredients", force: :cascade do |t|
-    t.float "weightInKg"
-    t.integer "kgPriceInCents"
-    t.datetime "orderDate"
-    t.datetime "estimatedDeliveryDate"
-    t.datetime "deliveryDate"
+    t.bigint "supplier_id", null: false
+    t.bigint "ingredient_id", null: false
+    t.bigint "employee_id", null: false
+    t.float "weight_in_kg"
+    t.integer "kgPrice_in_cents"
+    t.datetime "order_date"
+    t.datetime "estimated_delivery_date"
+    t.datetime "delivery_date"
     t.integer "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["employee_id"], name: "index_bought_ingredients_on_employee_id"
+    t.index ["ingredient_id"], name: "index_bought_ingredients_on_ingredient_id"
+    t.index ["supplier_id"], name: "index_bought_ingredients_on_supplier_id"
   end
 
   create_table "customers", force: :cascade do |t|
+    t.bigint "user_id", null: false
     t.string "name"
-    t.string "contactPersonName"
+    t.string "contact_person_name"
     t.string "phone"
     t.string "email"
-    t.boolean "isActive"
+    t.boolean "is_active"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_customers_on_user_id"
   end
 
   create_table "employees", force: :cascade do |t|
@@ -78,32 +92,49 @@ ActiveRecord::Schema.define(version: 2021_05_01_150746) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "ingredients_product_ingredients", id: false, force: :cascade do |t|
+    t.bigint "product_ingredient_id", null: false
+    t.bigint "ingredient_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["ingredient_id"], name: "index_ingredients_product_ingredients_on_ingredient_id"
+    t.index ["product_ingredient_id"], name: "index_ingredients_product_ingredients_on_product_ingredient_id"
+  end
+
   create_table "ingredients_storages", force: :cascade do |t|
-    t.float "weightInKg"
+    t.float "weight_in_kg"
     t.datetime "checkDate"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "orders", force: :cascade do |t|
-    t.integer "unitPriceInCents"
-    t.datetime "orderDate"
-    t.datetime "estimatedDeliveryDate"
-    t.datetime "deliveryDate"
+    t.bigint "batch_id"
+    t.bigint "customer_id", null: false
+    t.bigint "packed_product_id", null: false
+    t.integer "unit_price_in_cents"
+    t.datetime "order_date"
+    t.datetime "estimated_delivery_date"
+    t.datetime "delivery_date"
     t.integer "status"
-    t.integer "orderedUnits"
-    t.integer "soldUnits"
+    t.integer "ordered_units"
+    t.integer "sold_units"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["batch_id"], name: "index_orders_on_batch_id"
+    t.index ["customer_id"], name: "index_orders_on_customer_id"
+    t.index ["packed_product_id"], name: "index_orders_on_packed_product_id"
   end
 
   create_table "packed_products", force: :cascade do |t|
+    t.bigint "product_id", null: false
     t.string "name"
-    t.integer "weightInGramms"
-    t.integer "packageType"
-    t.integer "priceInCents"
+    t.integer "weight_in_gramms"
+    t.integer "package_type"
+    t.integer "price_in_cents"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["product_id"], name: "index_packed_products_on_product_id"
   end
 
   create_table "positions", force: :cascade do |t|
@@ -114,24 +145,28 @@ ActiveRecord::Schema.define(version: 2021_05_01_150746) do
   end
 
   create_table "product_ingredients", force: :cascade do |t|
-    t.integer "weightInGramms"
+    t.bigint "product_id", null: false
+    t.bigint "ingredient_id", null: false
+    t.integer "weight_in_gramms"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["ingredient_id"], name: "index_product_ingredients_on_ingredient_id"
+    t.index ["product_id"], name: "index_product_ingredients_on_product_id"
   end
 
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.integer "type"
-    t.float "fatPercentage"
+    t.float "fat_percentage"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "suppliers", force: :cascade do |t|
     t.string "name"
-    t.string "contactPersonName"
+    t.string "contact_person_name"
     t.string "email"
-    t.boolean "isActive"
+    t.boolean "is_active"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -150,6 +185,16 @@ ActiveRecord::Schema.define(version: 2021_05_01_150746) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "batches", "packed_products"
+  add_foreign_key "bought_ingredients", "employees"
+  add_foreign_key "bought_ingredients", "ingredients"
+  add_foreign_key "bought_ingredients", "suppliers"
+  add_foreign_key "customers", "users"
   add_foreign_key "employees", "positions"
+  add_foreign_key "orders", "customers"
+  add_foreign_key "orders", "packed_products"
+  add_foreign_key "packed_products", "products"
+  add_foreign_key "product_ingredients", "ingredients"
+  add_foreign_key "product_ingredients", "products"
   add_foreign_key "users", "employees"
 end

@@ -1,7 +1,9 @@
 class CreateProductIngredients < ActiveRecord::Migration[6.1]
   def change
     create_table :product_ingredients do |t|
-      t.integer :weightInGramms
+      t.belongs_to :product, null: false, foreign_key: true
+      t.belongs_to :ingredient, null: false, foreign_key: true
+      t.integer :weight_in_gramms
 
       t.timestamps
     end
