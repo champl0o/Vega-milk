@@ -1,7 +1,8 @@
 class CreateCustomers < ActiveRecord::Migration[6.1]
   def change
     create_table :customers do |t|
-      t.belongs_to :user, null: false, foreign_key: true
+      t.belongs_to :sales_manager, null: false,
+       foreign_key: { to_table: :employees }
       t.string :name
       t.string :contact_person_name
       t.string :phone

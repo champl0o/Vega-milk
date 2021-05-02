@@ -1,4 +1,4 @@
 class IngredientsStorage < ApplicationRecord
-    has_many :ingredients
-    has_many :employees
+    belongs_to :ingredient
+    belongs_to :employee
 end
