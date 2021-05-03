@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 2021_05_01_150746) do
     t.datetime "produce_date"
     t.datetime "expiration_date"
     t.integer "units"
+    t.integer "sold_units"
     t.integer "cancelled_units"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -90,17 +91,6 @@ ActiveRecord::Schema.define(version: 2021_05_01_150746) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "ingredients_storages", force: :cascade do |t|
-    t.bigint "ingredient_id", null: false
-    t.bigint "employee_id", null: false
-    t.float "weight_in_kg"
-    t.datetime "check_date"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["employee_id"], name: "index_ingredients_storages_on_employee_id"
-    t.index ["ingredient_id"], name: "index_ingredients_storages_on_ingredient_id"
-  end
-
   create_table "orders", force: :cascade do |t|
     t.bigint "batch_id"
     t.bigint "customer_id", null: false
@@ -155,6 +145,17 @@ ActiveRecord::Schema.define(version: 2021_05_01_150746) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "stored_ingredients", force: :cascade do |t|
+    t.bigint "ingredient_id", null: false
+    t.bigint "employee_id", null: false
+    t.float "weight_in_kg"
+    t.datetime "check_date"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["employee_id"], name: "index_stored_ingredients_on_employee_id"
+    t.index ["ingredient_id"], name: "index_stored_ingredients_on_ingredient_id"
+  end
+
   create_table "suppliers", force: :cascade do |t|
     t.string "name"
     t.string "contact_person_name"
@@ -184,12 +185,12 @@ ActiveRecord::Schema.define(version: 2021_05_01_150746) do
   add_foreign_key "bought_ingredients", "suppliers"
   add_foreign_key "customers", "employees", column: "sales_manager_id"
   add_foreign_key "employees", "positions"
-  add_foreign_key "ingredients_storages", "employees"
-  add_foreign_key "ingredients_storages", "ingredients"
   add_foreign_key "orders", "customers"
   add_foreign_key "orders", "packed_products"
   add_foreign_key "packed_products", "products"
   add_foreign_key "product_ingredients", "ingredients"
   add_foreign_key "product_ingredients", "products"
+  add_foreign_key "stored_ingredients", "employees"
+  add_foreign_key "stored_ingredients", "ingredients"
   add_foreign_key "users", "employees"
 end
