@@ -30,6 +30,9 @@ module RailsAdmin
 
             time_range = @from_date.beginning_of_day..@to_date.end_of_day
 
+            @additional_spends =
+              AdditionalSpend.in_date_range(time_range).order_by_date
+
             respond_to do |format|
               format.html { render @action.template_name }
               format.js   { render @action.template_name, layout: false }

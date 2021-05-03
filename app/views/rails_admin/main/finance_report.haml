@@ -13,17 +13,25 @@
       %button.btn.btn-info#button{ type: 'submit' }
         %i.icon-white Calculate
 
+%h3{ align: 'center' }
+  Additional spends
+  |
+  = @additional_spends.sum(&:cost)
+
 %table{ align: 'center' }
   %tr
-    %th{ title: '' } 1
-  %tr
-    %td{ title: '' } 1
-  %tr
-    %td{ title: '' } 1
-  %tr
-    %td{ title: '' } 1
-  %tr
-    %td{ title: '' } 1
+    %th Title
+    %th Cost
+    %th Date
+
+  - @additional_spends.each do |spend|
+    %tr
+      %td.align-left= spend.title
+      %td.align-right= spend.cost
+      %td.align-right= spend.date
+
+%br
+%br
 
 :css
   table {
@@ -38,8 +46,12 @@
     padding: 8px;
   }
 
-  table .first_column {
+  table .align-left {
     text-align: left;
+  }
+
+  table .align-right {
+    text-align: right;
   }
 
   table tr:nth-child(even){background-color: #f2f2f2;}
