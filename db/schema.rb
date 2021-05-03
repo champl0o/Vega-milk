@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_01_194211) do
+ActiveRecord::Schema.define(version: 2021_05_01_150746) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,8 +39,6 @@ ActiveRecord::Schema.define(version: 2021_05_01_194211) do
   create_table "batches_employees", id: false, force: :cascade do |t|
     t.bigint "batch_id", null: false
     t.bigint "employee_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
     t.index ["batch_id"], name: "index_batches_employees_on_batch_id"
     t.index ["employee_id"], name: "index_batches_employees_on_employee_id"
   end
@@ -50,7 +48,7 @@ ActiveRecord::Schema.define(version: 2021_05_01_194211) do
     t.bigint "ingredient_id", null: false
     t.bigint "employee_id", null: false
     t.float "weight_in_kg"
-    t.integer "kgPrice_in_cents"
+    t.integer "kg_price_in_cents"
     t.datetime "order_date"
     t.datetime "estimated_delivery_date"
     t.datetime "delivery_date"
@@ -63,7 +61,7 @@ ActiveRecord::Schema.define(version: 2021_05_01_194211) do
   end
 
   create_table "customers", force: :cascade do |t|
-    t.bigint "user_id", null: false
+    t.bigint "sales_manager_id", null: false
     t.string "name"
     t.string "contact_person_name"
     t.string "phone"
@@ -71,7 +69,7 @@ ActiveRecord::Schema.define(version: 2021_05_01_194211) do
     t.boolean "is_active"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_customers_on_user_id"
+    t.index ["sales_manager_id"], name: "index_customers_on_sales_manager_id"
   end
 
   create_table "employees", force: :cascade do |t|
@@ -92,20 +90,15 @@ ActiveRecord::Schema.define(version: 2021_05_01_194211) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "ingredients_product_ingredients", id: false, force: :cascade do |t|
-    t.bigint "product_ingredient_id", null: false
-    t.bigint "ingredient_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["ingredient_id"], name: "index_ingredients_product_ingredients_on_ingredient_id"
-    t.index ["product_ingredient_id"], name: "index_ingredients_product_ingredients_on_product_ingredient_id"
-  end
-
   create_table "ingredients_storages", force: :cascade do |t|
+    t.bigint "ingredient_id", null: false
+    t.bigint "employee_id", null: false
     t.float "weight_in_kg"
-    t.datetime "checkDate"
+    t.datetime "check_date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["employee_id"], name: "index_ingredients_storages_on_employee_id"
+    t.index ["ingredient_id"], name: "index_ingredients_storages_on_ingredient_id"
   end
 
   create_table "orders", force: :cascade do |t|
@@ -189,8 +182,10 @@ ActiveRecord::Schema.define(version: 2021_05_01_194211) do
   add_foreign_key "bought_ingredients", "employees"
   add_foreign_key "bought_ingredients", "ingredients"
   add_foreign_key "bought_ingredients", "suppliers"
-  add_foreign_key "customers", "users"
+  add_foreign_key "customers", "employees", column: "sales_manager_id"
   add_foreign_key "employees", "positions"
+  add_foreign_key "ingredients_storages", "employees"
+  add_foreign_key "ingredients_storages", "ingredients"
   add_foreign_key "orders", "customers"
   add_foreign_key "orders", "packed_products"
   add_foreign_key "packed_products", "products"
