@@ -6,6 +6,7 @@ class CreateBatches < ActiveRecord::Migration[6.1]
       t.datetime :produce_date
       t.datetime :expiration_date
       t.integer :units
+      t.integer :sold_units
       t.integer :cancelled_units
 
       t.timestamps
