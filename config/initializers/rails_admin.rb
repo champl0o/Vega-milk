@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require 'nested_form/engine'
+require 'nested_form/builder_mixin'
+
 %w[
   custom_action
 ].each do |action|
