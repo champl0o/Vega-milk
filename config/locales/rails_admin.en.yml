@@ -6,3 +6,8 @@ en:
         menu: "Custom action"
         breadcrumb: "Custom action"
         link: "Custom action"
+      finance_report:
+        title: "Finance report"
+        menu: "Finance report"
+        breadcrumb: "Finance report"
+        link: "Finance report"

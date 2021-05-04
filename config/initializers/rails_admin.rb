@@ -5,6 +5,7 @@ require 'nested_form/builder_mixin'
 
 %w[
   custom_action
+  finance_report
 ].each do |action|
   require Rails.root.join("app/lib/rails_admin/config/actions/#{action}")
 end
@@ -46,6 +47,7 @@ RailsAdmin.config do |config|
     show_in_app
 
     custom_action
+    finance_report
 
     ## With an audit adapter, you can add:
     # history_index
