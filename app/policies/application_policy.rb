@@ -46,8 +46,8 @@ class ApplicationPolicy
     false
   end
 
-  def custom_action?
-    false
+  RailsAdmin::CUSTOM_ACTIONS.each do |action|
+    define_method("#{action}?") { false }
   end
 
   class Scope

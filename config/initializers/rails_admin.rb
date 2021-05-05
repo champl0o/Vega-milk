@@ -3,13 +3,15 @@
 require 'nested_form/engine'
 require 'nested_form/builder_mixin'
 
-%w[
+RailsAdmin::CUSTOM_ACTIONS = %w[
   custom_action
   finance_report
   salary_report
   bought_ingredients_report
   income_report
-].each do |action|
+].freeze
+
+RailsAdmin::CUSTOM_ACTIONS.each do |action|
   require Rails.root.join("app/lib/rails_admin/config/actions/#{action}")
 end
 

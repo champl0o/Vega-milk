@@ -7,7 +7,6 @@ module RailsAdmin
         RailsAdmin::Config::Actions.register(self)
 
         register_instance_option(:collection) { true }
-        register_instance_option(:only) { [AdditionalSpend, Order, Employee, BoughtIngredient] }
         register_instance_option(:link_icon) { 'fa fa-money' }
         register_instance_option(:http_methods) { %i[get] }
 
