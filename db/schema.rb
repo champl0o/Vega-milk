@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(version: 2021_05_01_150746) do
     t.datetime "order_date"
     t.datetime "estimated_delivery_date"
     t.datetime "delivery_date"
-    t.integer "status"
+    t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["employee_id"], name: "index_bought_ingredients_on_employee_id"

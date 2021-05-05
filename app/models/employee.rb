@@ -2,7 +2,7 @@
 
 class Employee < ApplicationRecord
   scope :in_date_range, ->(range) { where(arel_table[:begin_date].between(range)) }
-  scope :by_id, -> { order(id: :asc) }
+  scope :order_by_begin_date, -> { order(begin_date: :desc) }
 
   belongs_to :position
   has_and_belongs_to_many :batches
@@ -12,6 +12,6 @@ class Employee < ApplicationRecord
   end
 
   def salary_per_day
-    BigDecimal(position.salary_in_cents) / 100 / 30
+    (salary / 30).ceil(2)
   end
 end

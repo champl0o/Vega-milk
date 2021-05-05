@@ -16,3 +16,8 @@ en:
         menu: "Salary report"
         breadcrumb: "Salary report"
         link: "Salary report"
+      bought_ingredients_report:
+        title: "Bought ingredients report"
+        menu: "Bought ingredients report"
+        breadcrumb: "Bought ingredients report"
+        link: "Bought ingredients report"

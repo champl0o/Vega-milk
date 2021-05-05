@@ -1,5 +1,5 @@
 %div#form{ align: 'center' }
-  = form_tag salary_report_path, method: 'get' do
+  = form_tag bought_ingredients_report_path, method: 'get' do
     %br
     = label_tag :from
     = date_select :from, :date,
@@ -14,25 +14,33 @@
         %i.icon-white Calculate
 
 %h3{ align: 'center' }
-  Employees salary
+  Bought ingredient spends
   |
-  = @employees.sum(&:salary_per_day) * @days
+  = @bought_ingredients.sum(&:cost)
 
 %table{ align: 'center' }
   %tr
-    %th Title
-    %th Email
-    %th Phone
-    %th Month salary
-    %th Begin Date
+    %th Supplier
+    %th Ingredient
+    %th Employee
+    %th Weight in kg
+    %th Price
+    %th Order date
+    %th Estimated delivery date
+    %th Delivery date
+    %th Status
 
-  - @employees.each do |employee|
+  - @bought_ingredients.each do |bought_ingredient|
     %tr
-      %td.align-left= employee.name
-      %td.align-right= employee.email
-      %td.align-right= employee.phone
-      %td.align-right= employee.salary
-      %td.align-right= employee.begin_date
+      %td.align-left= bought_ingredient.supplier.name
+      %td.align-right= bought_ingredient.ingredient.name
+      %td.align-right= bought_ingredient.employee.name
+      %td.align-right= bought_ingredient.weight_in_kg
+      %td.align-right= bought_ingredient.cost
+      %td.align-right= bought_ingredient.order_date
+      %td.align-right= bought_ingredient.estimated_delivery_date
+      %td.align-right= bought_ingredient.delivery_date
+      %td.align-right= bought_ingredient.status
 
 %br
 %br
@@ -41,7 +49,7 @@
   table {
     font-size: 14pt;
     border-collapse: collapse;
-    width: 70%;
+    width: 90%;
   }
 
   table td, table th {

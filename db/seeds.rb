@@ -6,15 +6,14 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-pos = Position.create(name: 'Worker', salary_in_cents: 100)
+pos = Position.create(name: 'Worker', salary_in_cents: 125_00)
 e = Employee.create(
-  position: Position.find(1),
+  position: pos,
   name: 'Olive Branch',
   email: 'donald.rowe@tremblay-hettinger.name',
   phone: '613.027.7507 x1872',
   begin_date: DateTime.parse('04/04/2021')
 )
-
 u = User.create!(
   email: 'test@example.com',
   password: 'password',

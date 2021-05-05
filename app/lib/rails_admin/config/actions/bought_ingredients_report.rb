@@ -3,11 +3,11 @@
 module RailsAdmin
   module Config
     module Actions
-      class SalaryReport < RailsAdmin::Config::Actions::Base
+      class BoughtIngredientsReport < RailsAdmin::Config::Actions::Base
         RailsAdmin::Config::Actions.register(self)
 
         register_instance_option(:collection) { true }
-        register_instance_option(:only) { Employee }
+        register_instance_option(:only) { BoughtIngredient }
         register_instance_option(:link_icon) { 'fa fa-money' }
         register_instance_option(:http_methods) { %i[get] }
 
@@ -30,10 +30,8 @@ module RailsAdmin
 
             time_range = @from_date.beginning_of_day..@to_date.end_of_day
 
-            @days = (@to_date - @from_date).to_i
-
-            @employees =
-              Employee.in_date_range(time_range).order_by_begin_date
+            @bought_ingredients =
+              BoughtIngredient.in_date_range(time_range).order_by_date
 
             respond_to do |format|
               format.html { render @action.template_name }
