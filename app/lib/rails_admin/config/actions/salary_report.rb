@@ -33,7 +33,7 @@ module RailsAdmin
             @days = (@to_date - @from_date).to_i
 
             @employees =
-              Employee.in_date_range(time_range).by_id
+              Employee.in_date_range(time_range).order_by_begin_date
 
             respond_to do |format|
               format.html { render @action.template_name }

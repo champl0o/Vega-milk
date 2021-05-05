@@ -16,7 +16,7 @@
 %h3{ align: 'center' }
   Employees salary
   |
-  = (@employees.sum(&:salary_per_day) * @days).round(3)
+  = @employees.sum(&:salary_per_day) * @days
 
 %table{ align: 'center' }
   %tr

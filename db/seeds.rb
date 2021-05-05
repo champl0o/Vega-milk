@@ -8,7 +8,7 @@
 
 pos = Position.create(name: 'Worker', salary_in_cents: 125_00)
 e = Employee.create(
-  position: Position.find(1),
+  position: pos,
   name: 'Olive Branch',
   email: 'donald.rowe@tremblay-hettinger.name',
   phone: '613.027.7507 x1872',

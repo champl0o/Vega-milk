@@ -15,7 +15,7 @@ FactoryBot.define do
   end
 
   factory :employee do
-    position { Position.find(rand(Position.first.id..(Position.last.id - 1))) }
+    position
     name { Faker::FunnyName.name }
     email { Faker::Internet.email }
     phone { Faker::PhoneNumber.phone_number }
@@ -35,9 +35,9 @@ FactoryBot.define do
   end
 
   factory :bought_ingredient do
-    supplier { Supplier.find(rand(Supplier.first.id..(Supplier.last.id - 1))) }
-    ingredient { Ingredient.find(rand(Ingredient.first.id..(Ingredient.last.id - 1))) }
-    employee { Employee.find(rand(Employee.first.id..(Employee.last.id - 1))) }
+    supplier
+    ingredient
+    employee
     weight_in_kg { rand(100..1_000) }
     kg_price_in_cents { rand(100_00..500_00) }
     order_date { Faker::Date.between(from: 2.months.ago, to: Date.today) }
