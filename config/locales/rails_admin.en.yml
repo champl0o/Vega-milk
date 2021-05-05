@@ -21,3 +21,8 @@ en:
         menu: "Bought ingredients report"
         breadcrumb: "Bought ingredients report"
         link: "Bought ingredients report"
+      income_report:
+        title: "Income report"
+        menu: "Income report"
+        breadcrumb: "Income report"
+        link: "Income report"

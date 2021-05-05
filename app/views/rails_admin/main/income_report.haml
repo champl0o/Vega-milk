@@ -1,0 +1,85 @@
+%div#form{ align: 'center' }
+  = form_tag finance_report_path, method: 'get' do
+    %br
+    = label_tag :from
+    = date_select :from, :date,
+                  start_year: 2021, end_year: Date.today.year, default: @from_date
+
+    = label_tag :to
+    = date_select :to, :date,
+                  start_year: 2021, end_year: Date.today.year, default: @to_date
+    %br
+    .form-actions
+      %button.btn.btn-info#button{ type: 'submit' }
+        %i.icon-white Calculate
+
+%h3{ align: 'center' }
+  Income without spends
+  |
+  = @orders.sum(&:cost)
+
+%br
+
+%h3{ align: 'center' }
+  Income with spends
+  |
+  = @orders.sum(&:cost) - (@additional_spends.sum(&:cost) + @employees.sum(&:salary_per_day) * @days + @bought_ingredients.sum(&:cost))
+
+%table{ align: 'center' }
+  %tr
+    %th Customer
+    %th Price
+    %th Sold units
+
+  - @orders.each do |order|
+    %tr
+      %td.align-left= order.customer.name
+      %td.align-right= order.cost
+      %td.align-right= order.sold_units
+
+%br
+%br
+
+:css
+  table {
+    font-size: 14pt;
+    border-collapse: collapse;
+    width: 70%;
+  }
+
+  table td, table th {
+    text-align: center;
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+
+  table .align-left {
+    text-align: left;
+  }
+
+  table .align-right {
+    text-align: right;
+  }
+
+  table tr:nth-child(even){background-color: #f2f2f2;}
+
+  table tr:hover {background-color: #ddd;}
+
+  table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: #428bca;
+    color: white;
+  }
+
+  #form {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+  #button {
+    width: 20%;
+    font-size: 14pt;
+    margin-top: 12px;
+    margin-bottom: 12px;
+  }
