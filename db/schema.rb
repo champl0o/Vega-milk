@@ -99,7 +99,7 @@ ActiveRecord::Schema.define(version: 2021_05_01_150746) do
     t.datetime "order_date"
     t.datetime "estimated_delivery_date"
     t.datetime "delivery_date"
-    t.integer "status"
+    t.string "status"
     t.integer "ordered_units"
     t.integer "sold_units"
     t.datetime "created_at", precision: 6, null: false

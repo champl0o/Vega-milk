@@ -30,6 +30,6 @@ u = User.create!(
 100.times { FactoryBot.create(:bought_ingredient) }
 100.times { FactoryBot.create(:product_ingredient) }
 100.times { FactoryBot.create(:batch) }
-400.times { FactoryBot.create(:order) }
+700.times { FactoryBot.create(:order) }
 
 puts 'Awesome'

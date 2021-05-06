@@ -8,7 +8,7 @@ class CreateOrders < ActiveRecord::Migration[6.1]
       t.datetime :order_date
       t.datetime :estimated_delivery_date
       t.datetime :delivery_date
-      t.integer :status
+      t.string :status
       t.integer :ordered_units
       t.integer :sold_units
 
