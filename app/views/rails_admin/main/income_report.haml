@@ -36,6 +36,11 @@
       %td.align-left= order.customer.name
       %td.align-right= order.cost
       %td.align-right= order.sold_units
+      %td.align-right= order.order_date
+      %td.align-right= order.delivery_date
+      %td.align-right= order.ordered_units
+      %td.align-right= order.sold_units
+      %td.align-right= order.status
 
 %br
 %br
@@ -44,7 +49,7 @@
   table {
     font-size: 14pt;
     border-collapse: collapse;
-    width: 70%;
+    width: 90%;
   }
 
   table td, table th {
