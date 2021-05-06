@@ -8,5 +8,5 @@ class User < ApplicationRecord
 
   belongs_to :employee
 
-  enum role: [ :user, :admin, :sales_manager, :storage_manager ]
+  enum role: [ :user, :admin, :sales_manager, :storage_manager, :hr ]
 end

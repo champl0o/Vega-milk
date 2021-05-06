@@ -54,7 +54,7 @@ FactoryBot.define do
 
   factory :product do
     name { Faker::Commerce.product_name }
-    type { rand(0..3) }
+    product_type { rand(0..3) }
     fat_percentage { rand(0.1..30.0) }
   end
 
@@ -81,6 +81,11 @@ FactoryBot.define do
     cancelled_units { rand(0..units) }
   end
 
+  factory :batch_employee do
+    batch
+    employee
+  end
+
   factory :customer do
     name { Faker::Company.name }
     contact_person_name { Faker::FunnyName.name }
@@ -91,9 +96,9 @@ FactoryBot.define do
   end
 
   factory :order do
-    batch { rand(1..2) == 1 ? batch : nil }
+    batch
     customer
-    packed_product
+    packed_product { batch.packed_product }
     unit_price_in_cents { rand(100_00..500_00) }
     order_date { Faker::Date.between(from: 2.months.ago, to: Date.today) }
     estimated_delivery_date { Faker::Date.between(from: order_date, to: Date.today + 5) }

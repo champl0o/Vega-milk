@@ -1,4 +1,4 @@
-class BatchPolicy < AllowedCrudPolicy
+class IngredientPolicy < AllowedCrudPolicy
   def index?
     user.role == 'admin'
   end

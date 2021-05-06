@@ -1,6 +1,6 @@
-class UserPolicy < AllowedCrudPolicy
+class SupplierPolicy < AllowedCrudPolicy
   def index?
-    user.role == 'admin' || user.role == 'hr'
+    user.role == 'admin'
   end
 
   def create?

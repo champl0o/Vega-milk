@@ -2,7 +2,7 @@ class CreateProducts < ActiveRecord::Migration[6.1]
   def change
     create_table :products do |t|
       t.string :name
-      t.integer :type
+      t.integer :product_type
       t.float :fat_percentage
 
       t.timestamps
